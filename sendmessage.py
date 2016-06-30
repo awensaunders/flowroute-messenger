@@ -3,10 +3,11 @@
 import argparse 
 from modules import flowroute 
 
+
 def arguments():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('from_number', help="The number to send from")
-    parser.add_argument('to_number', help="The number to send to")
+    parser = argparse.ArgumentParser(description="Simple utility to send messages through the Flowroute API")
+    parser.add_argument('from_number', help="The number to send from", metavar="from")
+    parser.add_argument('to_number', help="The number to send to", metavar="to")
     parser.add_argument('message', help="The message body")
     return parser.parse_args()
 
