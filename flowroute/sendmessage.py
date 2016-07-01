@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse 
-from modules import flowroute 
+import flowroute.flowroute
 
 
 def arguments():
@@ -11,12 +11,16 @@ def arguments():
     parser.add_argument('message', help="The message body")
     return parser.parse_args()
 
+def main():
+    args = arguments()
+    msg = flowroute.flowroute.Messages()
+    mdr = msg.send(args.from_number, args.to_number, args.message)
+    detail = msg.lookup(mdr)['data']['attributes']
+    print("Message sent to", detail['to'])
+    print("Cost:", detail['amount_display'])
+
 if __name__ == '__main__':
-   args = arguments()
-   msg = flowroute.Messages()
-   mdr = msg.send(args.from_number, args.to_number, args.message)
-   detail = msg.lookup(mdr)['data']['attributes']
-   print("Message sent to", detail['to'])
-   print("Cost:", detail['amount_display'])
+    main()
+   
    
    

@@ -2,7 +2,7 @@ import requests
 import yaml 
 import io
 import json
-
+import flowroute 
 default = {'flowroute': {'passwd': 'password', 'user': 'user'}, 'exists': True}
 
 class Secrets(object):
@@ -36,8 +36,7 @@ class Secrets(object):
 class Messages(object):
     def __init__(self):
         """Constructor, takes argument from_number (should be string), which is the number which the messages should originate from (must be owned by your account)."""
-        self.secrets = Secrets(".secrets.yml")
-        
+        self.secrets = Secrets(flowroute.__path__[0] + "/secrets.yml")
     def send(self, from_number, to_number, body):
         """Method for sending messages. Takes three arguments, from, to, and body. To is the string of the phone number the message should be sent to. Body is the content of the message. This method returns a message detail record identifier that can be used to look up a message at a later date"""
         self.from_number = str(from_number)
